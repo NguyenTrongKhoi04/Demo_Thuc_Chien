@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date and Time Picker</title>
+</head>
+<body onload="initialize()">
+
+    <!-- Thêm nhiều input với cùng một class để chúng ta có thể áp dụng hàm cho tất cả chúng -->
+    <form>
+        <label for="thoiGianBatDau">Chọn thời gian bắt đầu:</label>
+        <input type="datetime-local" class="thoiGian" name="thoiGianBatDau" onchange="setMinDatetime(this)" required>
+
+        <label for="thoiGianKetThuc">Chọn thời gian kết thúc:</label>
+        <input type="datetime-local" class="thoiGian" name="thoiGianKetThuc" onchange="setMinDatetime(this)" required>
+    </form>
+
+    <script>
+        // Hàm để khởi tạo giá trị tối thiểu khi trang web được tải và khi có sự thay đổi
+        function setMinDatetime(input) {
+            var now = new Date();
+            var formattedNow = now.toISOString().slice(0, 16);
+
+            // Nếu không có input được truyền vào, đặt giá trị tối thiểu cho tất cả các input
+            if (!input) {
+                var inputs = document.getElementsByClassName("thoiGian");
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].min = formattedNow;
+                }
+            } else {
+                // Nếu có input được truyền vào, đặt giá trị tối thiểu chỉ cho input đó
+                input.min = formattedNow;
+            }
+        }
+
+        // Hàm để gọi khi trang được tải
+        function initialize() {
+            setMinDatetime();
+        }
+    </script>
+
+</body>
+</html>

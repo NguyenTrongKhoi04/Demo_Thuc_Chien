@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Example</title>
+</head>
+<body>
+    <div id="countdown"></div>
+
+    <script>
+        function countdown(seconds, callback) {
+            var countdownElement = document.getElementById('countdown');
+
+            function updateDisplay() {
+                countdownElement.innerHTML = seconds + ' seconds remaining';
+            }
+
+            var interval = setInterval(function () {
+                updateDisplay();
+                seconds--;
+
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = '<?= 2 ?>';
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                }
+            }, 1000);
+
+            updateDisplay(); // Update display immediately
+        }
+
+        // Example usage: countdown for 10 seconds and alert when complete
+        countdown(10, function () {
+            alert('Countdown complete!');
+        });
+    </script>
+</body>
+</html>
